@@ -31,17 +31,16 @@ function loadIG(elem) {
         </div>
       </div>
     </div>`;
-    const new_container = elem.querySelector(".js-tweet-text-container");
-    new_container.insertAdjacentHTML('afterend', future_container)
+     container_link.insertAdjacentHTML('afterend', future_container)
     }).catch(function(err) {
       console.log(err);
     })
   }
 };
 
-// select the target node
-const target = document.getElementById('stream-items-id');
-const initial_posts = target.querySelectorAll(".js-stream-item");
+// // select the target node
+var target = document.getElementById('stream-items-id');
+var initial_posts = target.querySelectorAll(".js-stream-item");
 
 //find batch of initial cards
 for (let i = 0; i < initial_posts.length; i++) {
@@ -49,18 +48,20 @@ for (let i = 0; i < initial_posts.length; i++) {
 }
 
 // observe mutations on subsequent cards
-const observer = new MutationObserver(function(mutations) {
+var observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
-    const posts = mutation.addedNodes
+    var posts = mutation.addedNodes
+    
     for (let i = 0; i < posts.length; i++) {
       loadIG(posts[i]);
     }
   });
 });
 
-const config = { attributes: false, childList: true, characterData: false, subtree: false };
+var config = { attributes: false, childList: true, characterData: false, subtree: false };
 
 observer.observe(target, config);
+
 
 
 

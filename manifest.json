@@ -1,12 +1,11 @@
 {
   "name": "IG Viewer",
   "description": "Displays IG pictures on Twitter feed.",
-  "version": "1.0",
+  "version": "1.1.0",
   "permissions": [
     "activeTab",
     "https://twitter.com/",
-    "https://api.instagram.com/",
-    "https://igviewer.herokuapp.com/"
+    "https://api.instagram.com/"
   ],
   "background": {
     "scripts": ["background.js", "content_script.js"],
