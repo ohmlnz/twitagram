@@ -1,3 +1,9 @@
+let style = document.createElement('link');
+style.rel = 'stylesheet';
+style.type = 'text/css';
+style.href = chrome.extension.getURL('style.css');
+(document.head||document.documentElement).appendChild(style);
+
 function loadIG(elem) {
   const container_link = elem.querySelector(".js-tweet-text-container");
   const displayed_url = container_link.querySelectorAll(".twitter-timeline-link");
@@ -19,19 +25,10 @@ function loadIG(elem) {
       return res.json();
     }).then(function(json) {
       const image = json.thumbnail_url;
+      const description = json.title;
       const image_url = image.slice(0, image.indexOf('s612x612')) + image.slice(image.indexOf('s612x612') + 9);
-      const future_container = `<div class="AdaptiveMediaOuterContainer">
-      <div class="AdaptiveMedia is-square">
-        <div class="AdaptiveMedia-container">
-            <div class="AdaptiveMedia-singlePhoto" style="padding-top: calc(0.9888888888888889 * 100% - 0.5px);">
-              <div class="AdaptiveMedia-photoContainer js-adaptive-photo " data-image-url=${image_url} data-element-context="platform_photo_card" style="background-color:rgba(64,52,35,1.0);" data-dominant-color="[64,52,35]">
-                <img data-aria-label-part="" src=${image_url} alt="" style="width: 100%; top: -0px;">
-              </div>
-            </div>
-        </div>
-      </div>
-    </div>`;
-     container_link.insertAdjacentHTML('afterend', future_container)
+      const future_container = `<div class='igviewer'><p>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
+      container_link.insertAdjacentHTML('afterend', future_container)
     }).catch(function(err) {
       console.log(err);
     })
@@ -61,7 +58,3 @@ var observer = new MutationObserver(function(mutations) {
 var config = { attributes: false, childList: true, characterData: false, subtree: false };
 
 observer.observe(target, config);
-
-
-
-

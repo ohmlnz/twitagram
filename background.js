@@ -3,15 +3,24 @@
 // found in the LICENSE file.
 // Called when the user clicks on the browser action.
 
-// chrome.browserAction.onClicked.addListener(function(tab) {
-// 	chrome.browserAction.setIcon({ path:"icon-on.png" });
-//   chrome.tabs.executeScript(null, {file: "content_script.js"})
-// });
+var state = 0;
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+	if (state == 0) {
+		chrome.browserAction.setIcon({ path:"icon-on.png" });
+		chrome.tabs.executeScript(null, {file: "content_script.js"})
+		return state++;
+	}
+	state--;
+	chrome.browserAction.setIcon({ path:"icon-off.png" });
+});
 
 chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+	if (state == 1) {
 	 const twitter = /^https:\/\/twitter\.com\/*/;
 	 if (twitter.test(changeInfo.url)) {
   	chrome.tabs.executeScript(null, {file: "content_script.js"})
 	 }
+	}
 }); 
 
