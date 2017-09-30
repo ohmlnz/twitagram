@@ -3,7 +3,7 @@
 // found in the LICENSE file.
 // Called when the user clicks on the browser action.
 
-var state = 0;
+let state = 0;
 
 chrome.browserAction.onClicked.addListener(function(tab) {
 	if (state == 0) {
