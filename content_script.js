@@ -1,4 +1,4 @@
-let style = document.createElement('link');
+var style = document.createElement('link');
 style.rel = 'stylesheet';
 style.type = 'text/css';
 style.href = chrome.extension.getURL('style.css');
