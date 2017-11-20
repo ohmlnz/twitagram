@@ -30,7 +30,7 @@ function loadIG(elem) {
       const future_container = `<div class='igviewer'><p>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
       container_link.insertAdjacentHTML('afterend', future_container)
     }).catch(function(err) {
-      console.log(err);
+      //console.log(err);
     })
   }
 };

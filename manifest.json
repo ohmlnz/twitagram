@@ -1,7 +1,7 @@
 {
   "name": "IG Viewer",
   "description": "Displays IG pictures on Twitter feed.",
-  "version": "1.1.0",
+  "version": "0.1.0",
   "permissions": [
     "activeTab",
     "https://twitter.com/",
@@ -10,10 +10,6 @@
   "background": {
     "scripts": ["background.js"],
     "persistent": false
-  },
-  "content_script": {
-    "matches": ["http://twitter.com/*", "https://twitter.com/*"],
-    "js": ["content_script.js"],
   },
   "browser_action": {
     "default_title": "IG Viewer",
