@@ -5,6 +5,7 @@ style.href = chrome.extension.getURL('style.css');
 (document.head||document.documentElement).appendChild(style);
 
 function loadIG(elem) {
+  const content = elem.querySelector(".content");
   const container_link = elem.querySelector(".js-tweet-text-container");
   const displayed_url = container_link.querySelectorAll(".twitter-timeline-link");
   let insta_url = null;
@@ -30,13 +31,15 @@ function loadIG(elem) {
       const image_url = json.thumbnail_url;
       const description = json.title;
       const author = json.author_name;
-      //const image_url = image.slice(0, image.indexOf('s612x612')) + image.slice(image.indexOf('s612x612') + 9);
       const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
-      container_link.insertAdjacentHTML('afterend', future_container)
+      if (content.childNodes[4].className !== 'igviewer') {
+        container_link.insertAdjacentHTML('afterend', future_container)
+      }
     }).catch(function(err) {
       const container_err = `<div class='igviewer'><p style='color:#a29e9e'>The image is not available<p></div>`;
-      container_link.insertAdjacentHTML('afterend', container_err);
-      //console.log('the error was: ' + err);
+      if (content.childNodes[4].className !== 'igviewer') {
+        container_link.insertAdjacentHTML('afterend', container_err);
+      }
     })
   }
 };
