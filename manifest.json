@@ -3,9 +3,8 @@
   "description": "Displays IG pictures on Twitter feed.",
   "version": "0.1.0",
   "permissions": [
-    "activeTab",
     "https://twitter.com/",
-    "https://api.instagram.com/"
+    "http://twitter.com/"
   ],
   "background": {
     "scripts": ["background.js"],
