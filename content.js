@@ -18,8 +18,8 @@ function loadIG(elem) {
 
   if (insta_url) {
 
-   // retrieve ig link
-   const ig = insta_url.getAttribute('data-expanded-url');
+    // retrieve ig link
+    const ig = insta_url.getAttribute('data-expanded-url');
 
     // get img src from ig api
     fetch(`https://api.instagram.com/oembed/?url=${ig}`).then(function(res) {
@@ -34,14 +34,15 @@ function loadIG(elem) {
         const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
         if (content.childNodes[4].className !== 'igviewer') {
           container_link.insertAdjacentHTML('afterend', future_container)
+        }
       }).catch(function(err) {
         const container_err = `<div class='igviewer'><p style='color:#a29e9e'>The image is not available<p></div>`;
         if (content.childNodes[4].className !== 'igviewer') {
           container_link.insertAdjacentHTML('afterend', container_err);
         }
-      })
-    }
-  };
+      });
+  }
+}
 
 // select the target node
 var target = document.getElementById('stream-items-id');

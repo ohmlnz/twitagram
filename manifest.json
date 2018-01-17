@@ -2,7 +2,7 @@
   "name": "Twitagram",
   "short_name": "Twitagram",
   "description": "Enhance your Twitter experience by directly rendering Instagram images into your feed.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "permissions": [
     "https://twitter.com/",
     "http://twitter.com/"
