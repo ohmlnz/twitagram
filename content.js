@@ -15,43 +15,33 @@ function loadIG(elem) {
       insta_url = displayed_url[i];
     }
   }
-    
+
   if (insta_url) {
 
    // retrieve ig link
    const ig = insta_url.getAttribute('data-expanded-url');
 
-   // create storage div
-   const div = document.createElement('div');
-
     // get img src from ig api
-    fetch(ig).then(function(res) {
-      return res.text();
-    }).then(function(text) {
-      div.innerHTML = text;
-      const meta = div.querySelectorAll('meta');
-      
-      if (meta[9].property === "og:image") {
-        // another fetch
-      } else {
-        // get info from meta data
+    fetch(`https://api.instagram.com/oembed/?url=${ig}`).then(function(res) {
+      if (res.ok && res.status === 200) {
+        return res.json();
       }
-
-      // const image_url = json.thumbnail_url;
-      // const description = json.title;
-      // const author = json.author_name;
-      // const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
-      // if (content.childNodes[4].className !== 'igviewer') {
-      //   container_link.insertAdjacentHTML('afterend', future_container)
-      // }
-    }).catch(function(err) {
-      const container_err = `<div class='igviewer'><p style='color:#a29e9e'>The image is not available<p></div>`;
-      if (content.childNodes[4].className !== 'igviewer') {
-        container_link.insertAdjacentHTML('afterend', container_err);
-      }
-    })
-  }
-};
+        throw new Error();
+      }).then(function(json) {
+        const image_url = json.thumbnail_url;
+        const description = json.title;
+        const author = json.author_name;
+        const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
+        if (content.childNodes[4].className !== 'igviewer') {
+          container_link.insertAdjacentHTML('afterend', future_container)
+      }).catch(function(err) {
+        const container_err = `<div class='igviewer'><p style='color:#a29e9e'>The image is not available<p></div>`;
+        if (content.childNodes[4].className !== 'igviewer') {
+          container_link.insertAdjacentHTML('afterend', container_err);
+        }
+      })
+    }
+  };
 
 // select the target node
 var target = document.getElementById('stream-items-id');
@@ -66,7 +56,7 @@ for (let i = 0; i < initial_posts.length; i++) {
 var observer = new MutationObserver(function(mutations) {
   mutations.forEach(function(mutation) {
     var posts = mutation.addedNodes
-    
+
     for (let i = 0; i < posts.length; i++) {
       loadIG(posts[i]);
     }
