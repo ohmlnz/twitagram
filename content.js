@@ -21,20 +21,29 @@ function loadIG(elem) {
    // retrieve ig link
    const ig = insta_url.getAttribute('data-expanded-url');
 
+   // create storage div
+   const div = document.createElement('div');
+
     // get img src from ig api
-    fetch(`https://api.instagram.com/oembed/?url=${ig}`).then(function(res) {
-      if (res.ok && res.status === 200) {
-        return res.json();
+    fetch(ig).then(function(res) {
+      return res.text();
+    }).then(function(text) {
+      div.innerHTML = text;
+      const meta = div.querySelectorAll('meta');
+      
+      if (meta[9].property === "og:image") {
+        // another fetch
+      } else {
+        // get info from meta data
       }
-      throw new Error();
-    }).then(function(json) {
-      const image_url = json.thumbnail_url;
-      const description = json.title;
-      const author = json.author_name;
-      const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
-      if (content.childNodes[4].className !== 'igviewer') {
-        container_link.insertAdjacentHTML('afterend', future_container)
-      }
+
+      // const image_url = json.thumbnail_url;
+      // const description = json.title;
+      // const author = json.author_name;
+      // const future_container = `<div class='igviewer'><hr/><p style='color:#a29e9e'><span style='font-weight:bold'>${author} </span>${description}</p><a href=${ig} target='_blank'><img src=${image_url} alt='ig-card'/></a></div>`
+      // if (content.childNodes[4].className !== 'igviewer') {
+      //   container_link.insertAdjacentHTML('afterend', future_container)
+      // }
     }).catch(function(err) {
       const container_err = `<div class='igviewer'><p style='color:#a29e9e'>The image is not available<p></div>`;
       if (content.childNodes[4].className !== 'igviewer') {
@@ -44,7 +53,7 @@ function loadIG(elem) {
   }
 };
 
-// // select the target node
+// select the target node
 var target = document.getElementById('stream-items-id');
 var initial_posts = target.querySelectorAll(".js-stream-item");
 

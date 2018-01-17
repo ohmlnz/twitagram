@@ -1,8 +1,8 @@
 {
-  "name": "Instagram Viewer",
-  "short_name": "IG Viewer",
+  "name": "Twitagram",
+  "short_name": "Twitagram",
   "description": "Enhance your Twitter experience by directly rendering Instagram images into your feed.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "permissions": [
     "https://twitter.com/",
     "http://twitter.com/"
@@ -12,7 +12,7 @@
     "persistent": false
   },
   "browser_action": {
-    "default_title": "Instagram Viewer",
+    "default_title": "Twitagram",
     "default_icon": "icon-off.png"
   },
   "icons": {
